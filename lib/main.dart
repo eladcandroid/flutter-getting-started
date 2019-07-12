@@ -43,6 +43,49 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
+class Counter extends StatefulWidget {
+  Counter({Key key}) : super(key: key);
+
+  _CounterState createState() => _CounterState();
+}
+
+class _CounterState extends State<Counter> {
+  int _counter = 0;
+
+  void _incrementCounter() {
+    setState(() {
+      // This call to setState tells the Flutter framework that something has
+      // changed in this State, which causes it to rerun the build method below
+      // so that the display can reflect the updated values. If we changed
+      // _counter without calling setState(), then the build method would not be
+      // called again, and so nothing would appear to happen.
+      _counter++;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        child: Column(
+      children: <Widget>[
+        Text(
+          'You have pushed the button this many times:',
+        ),
+        Text(
+          '$_counter',
+          style: Theme.of(context).textTheme.display1,
+        ),
+        RaisedButton(
+          // icon: Icon(Icons.plus_one),
+          child: Text('Increment'),
+          highlightColor: Colors.pink,
+          onPressed: _incrementCounter,
+        )
+      ],
+    ));
+  }
+}
+
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
@@ -66,6 +109,15 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
+      drawer: Drawer(
+        child: Padding(
+            padding: EdgeInsets.only(top: 30),
+            child: ListTile(
+              subtitle: Text('SUBTITLE'),
+              title: Text('TITLE'),
+              leading: Icon(Icons.access_alarm),
+            )),
+      ),
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
@@ -91,21 +143,17 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
+            Counter(),
+            Counter(),
+            Counter(),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: _incrementCounter,
+      //   tooltip: 'Increment',
+      //   child: Icon(Icons.add),
+      // ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
