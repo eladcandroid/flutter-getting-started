@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -75,14 +78,32 @@ class _CounterState extends State<Counter> {
           '$_counter',
           style: Theme.of(context).textTheme.display1,
         ),
-        RaisedButton(
-          // icon: Icon(Icons.plus_one),
-          child: Text('Increment'),
-          highlightColor: Colors.pink,
-          onPressed: _incrementCounter,
-        )
+        Button(func: this._incrementCounter)
       ],
     ));
+  }
+}
+
+class Button extends StatelessWidget {
+  const Button({this.func}) : super();
+
+  final Function func;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Platform.isIOS
+          ? CupertinoButton(
+              child: Text('Increment'),
+              onPressed: func,
+            )
+          : RaisedButton(
+              // icon: Icon(Icons.plus_one),
+              child: Text('Increment'),
+              highlightColor: Colors.pink,
+              onPressed: func,
+            ),
+    );
   }
 }
 
